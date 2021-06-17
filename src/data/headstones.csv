@@ -1,3 +1,4 @@
-LastName,FirstName,LocX,LocY,EndX,EndY
-TestLast1,TestFirst1,130,120,100,50
-TestLast2,TestFirst2,230,220,150,30
+LastName,FirstName,LocX,LocY,Address,BirthYear,BurialYear
+TestLast1,TestFirst1,130,120,Place1,1902,1985
+TestLast2,TestFirst2,120,220,Place2,1912,1973
+TestLast3,TestFirst3,145,110,Place1,1930,2005

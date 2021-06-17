@@ -1,7 +1,7 @@
 import React, { 
     useEffect, 
     useState, 
-    useRef} from "react";
+} from "react";
 
 import { useStaticQuery, graphql } from "gatsby";
 
@@ -11,16 +11,24 @@ import AddressGraph from "../components/AddressGraph.js";
 const D3Test = () => {
     const [loading, setLoading] = useState(true);
 
-    const {allHeadstonesCsv} = useStaticQuery(graphql `
-        query AllHeadstones {
+    const {allHeadstonesCsv, allAddressesCsv} = useStaticQuery(graphql `
+        query  {
             allHeadstonesCsv {
                 nodes {
                     FirstName
                     LastName
-                    EndX
-                    EndY
                     LocX
                     LocY
+                    Address
+                    BirthYear
+                    BurialYear
+                }
+            }
+            allAddressesCsv {
+                nodes {
+                  Name
+                  LocX
+                  LocY
                 }
             }
         }
@@ -41,7 +49,8 @@ const D3Test = () => {
                 <>
                 <h1>Headstone Addresses</h1>
                 <AddressGraph 
-                    data={allHeadstonesCsv.nodes}
+                    headstones={allHeadstonesCsv.nodes}
+                    addresses={allAddressesCsv.nodes}
                 />
                 </>
             )}
