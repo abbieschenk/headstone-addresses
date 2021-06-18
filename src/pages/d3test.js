@@ -37,6 +37,8 @@ const D3Test = () => {
     useEffect(() => {
         if(allHeadstonesCsv) {
             setLoading(false);
+        } else {
+            setLoading(true);
         }
     
     }, [allHeadstonesCsv]);

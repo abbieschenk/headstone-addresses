@@ -9,7 +9,7 @@ import PropTypes from "prop-types"
 
 /** Adapted from https://dev.to/sandra_lewis/building-a-multi-range-slider-in-react-from-scratch-4dl1 **/
 
-const TimeSlider = ( {min, max, onMinChange, onMaxChange} ) => {
+const TimeSlider = ( {min, max, onMinChange, onMaxChange, className} ) => {
 
     const [minVal, setMinVal] = useState(min);
     const [maxVal, setMaxVal] = useState(max);
@@ -44,7 +44,7 @@ const TimeSlider = ( {min, max, onMinChange, onMaxChange} ) => {
     }, [maxVal, getPercent]);
 
     return(    
-        <>
+        <div className={"timeslider" + (className ? " " + className : "")}>
             <input
                 type="range"
                 min={min}
@@ -91,7 +91,7 @@ const TimeSlider = ( {min, max, onMinChange, onMaxChange} ) => {
                 <div className="slider__left-value">{minVal}</div>
                 <div className="slider__right-value">{maxVal}</div>
             </div>
-        </>
+        </div>
     );
 };
 

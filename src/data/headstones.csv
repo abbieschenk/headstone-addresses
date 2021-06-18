@@ -1,4 +1,12 @@
 LastName,FirstName,LocX,LocY,Address,BirthYear,BurialYear
 TestLast1,TestFirst1,130,120,Place1,1902,1985
 TestLast2,TestFirst2,120,220,Place2,1912,1973
-TestLast3,TestFirst3,145,110,Place1,1930,2005
+TestLast3,TestFirst3,150,110,Place1,1923,2003
+TestLast4,TestFirst4,150,100,Place1,1924,2002
+TestLast5,TestFirst5,150,150,Place2,1955,1987
+TestLast6,TestFirst6,140,110,Place1,1940,1964
+TestLast7,TestFirst7,140,120,Place1,1933,1983
+TestLast8,TestFirst8,160,120,Place1,1945,1999
+TestLast9,TestFirst9,170,120,Place2,1946,1995
+TestLast10,TestFirst10,140,130,Place1,1931,2003
+TestLast11,TestFirst11,190,190,Place1,,
