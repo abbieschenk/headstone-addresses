@@ -224,7 +224,7 @@ const AddressGraph = ({headstones, addresses}) => {
     }, [selected, showAll, isInDateRange, drawPath]);
 
     return (
-        <div id="address-graph">
+        <div id="address-graph" className="fade-in">
             <div className="center-column">
                 <svg 
                     id="d3"

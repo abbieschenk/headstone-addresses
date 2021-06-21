@@ -147,3 +147,15 @@ footer {
         flex-grow: 1;
     }
 }
+
+/** Animation **/
+
+.fade-in {
+    animation: fade-in 0.4s ease-in;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+}

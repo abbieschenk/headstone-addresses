@@ -8,7 +8,7 @@ import { useStaticQuery, graphql } from "gatsby";
 import Layout from "../components/Layout";
 import AddressGraph from "../components/AddressGraph";
 
-const D3Test = () => {
+const Index = () => {
     const [loading, setLoading] = useState(true);
 
     const {allHeadstonesCsv, allAddressesCsv} = useStaticQuery(graphql `
@@ -46,19 +46,15 @@ const D3Test = () => {
     }, [allHeadstonesCsv]);
 
     return (
-        <Layout>
-            {loading ? (
-                <h1>Loading...</h1>
-            ) : (
-            <>
+        <Layout> 
+            {!loading && (
                 <AddressGraph 
                     headstones={allHeadstonesCsv.nodes}
                     addresses={allAddressesCsv.nodes}
                 />
-            </>
             )}
         </Layout>
     );
 }
 
-export default D3Test;
+export default Index;

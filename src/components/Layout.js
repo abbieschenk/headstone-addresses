@@ -5,8 +5,7 @@ import Logo from "../images/logo.svg";
 
 import "../styles/styles.scss";
 import {
-    Instagram,
-    GitHub,
+    Instagram
 } from "react-feather";
 
 const Layout = ({ children }) => {
@@ -26,7 +25,7 @@ const Layout = ({ children }) => {
                         <Link to="/about" className="nav-link">
                             About
                         </Link>
-                        <a 
+                        <a
                             className="social" 
                             href="https://instagram.com/headstoneaddresses" 
                             target="_blank" 
