@@ -1,5 +1,149 @@
-#d3 {
-    width: 1200px;
-    height: 500px;
+/** Colors **/
+
+$color-green: #7c9390;
+$color-tan: #a68e75;
+$color-brown: #464436;
+
+/** Fonts **/
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+$header-font: 'EB Garamond', serif;
+$body-font: 'Open Sans', sans-serif;
+
+@mixin header($weight) {
+    font-family: $header-font;
+    font-style: normal;
+    font-weight: $weight;
+}
+@mixin header-bold { @include header(700); }
+@mixin header-medium { @include header(500); }
+@mixin header-regular { @include header(400); }
+    
+@mixin body($weight) {
+    font-family: $body-font;
+    font-style: normal;
+    font-weight: $weight;
+}
+@mixin body-bold { @include body(700); }
+@mixin body-regular { @include body(400); }
+
+/** Widths **/
+@mixin centered($max-width) {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: $max-width
 }
 
+@mixin default-width() {
+    @include centered(95%);
+}
+
+/** Standard Elements **/
+
+body {
+    @include body-regular();
+    
+    margin: 0px;
+    background-color: lighten($color-tan, 34%);
+}
+
+a {
+    color: $color-green;
+    text-decoration: none;
+
+    &:hover {
+        color: $color-tan;
+    }
+}
+
+a#home {
+    display: flex;
+    align-items: center;
+
+    &:hover > #site-logo > svg{
+        .border { stroke: $color-tan;}
+        .left { fill: $color-green;}
+    }
+
+    #site-logo {
+        margin-right: 15px;
+
+        $logo-size: 75px;
+
+        width: $logo-size;
+        height: $logo-size;
+    
+        svg {
+            .border { stroke: $color-green; fill: white; stroke-width: 30px; }
+            .left { fill: $color-tan; }
+            .right { fill: $color-brown; }
+        }
+    }
+}
+
+
+nav {
+    display: flex;
+    align-items: center;
+
+    justify-content: space-between;
+
+    @include header-medium();
+    font-size: 1.5rem;
+
+    padding-bottom: 10px;
+
+    border-bottom: $color-tan solid 1px;
+
+    @include default-width();
+    margin-top: 5px;
+
+    #menu {
+        display: flex;
+        align-items: center;
+        
+        justify-content: space-between;
+
+        a:first-child {
+            margin-right: 15px;
+        }
+
+        .social {
+            $icon-size: 24px;
+
+            width: $icon-size;
+            height: $icon-size;
+
+            svg {
+                width: $icon-size;
+                height: $icon-size;
+            }
+        }
+    }
+}
+
+main {
+    padding-top: 10px;
+
+    @include default-width();
+}
+
+footer {
+    @include default-width();
+
+    position: absolute;
+    
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 2.0em;
+
+    display: flex;
+
+    @include header-medium();
+
+    #footer-text {
+        flex-grow: 1;
+    }
+}

@@ -1,5 +1,24 @@
 /** Styling for the d3.js AddressGraph **/
 
+/** Components **/
+
+#address-graph {
+    display: flex;
+
+    .center-column {
+        min-width: 50%;
+    }
+}
+
+#info-panel {
+    width: 250px;
+    height: 250px;
+    padding: 15px;
+    border: solid 3px black;
+}
+
+/** Address Graph **/
+
 .background {
     fill: #A8A8A8;
 
@@ -20,7 +39,6 @@
         circle {
             fill: rgba(255, 255, 255, 0.8);
         }
-
 
         text {
             fill: black;

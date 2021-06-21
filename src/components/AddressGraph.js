@@ -126,7 +126,7 @@ const AddressGraph = ({headstones, addresses}) => {
                 .attr("d", (h) => generatePathData(h.AddressObj, h, "right"))
                 .attr("opacity", 0);
 
-        var headstoneNodes = svg.selectAll("g")
+        const headstoneNodes = svg.selectAll("g")
             .data(headstones)
             .enter().append("g")
             .classed("node headstone", true)
@@ -165,7 +165,9 @@ const AddressGraph = ({headstones, addresses}) => {
     }, [isInDateRange]);
 
     useEffect(() => {
-        d3.selectAll(".node")
+        const svg = d3.select(d3ref.current);
+
+        svg.selectAll(".node")
             .classed("selected", false);
 
         if(selected) {
@@ -222,20 +224,13 @@ const AddressGraph = ({headstones, addresses}) => {
     }, [selected, showAll, isInDateRange, drawPath]);
 
     return (
-        <div style={
-            {
-                display:"flex",
-                flexDirection: "row",
-            }
-            
-        }>
-            <div>
+        <div id="address-graph">
+            <div className="center-column">
                 <svg 
                     id="d3"
                     ref={d3ref} 
-                    viewBox="0 0 250 250"
+                    viewBox="0 0 500 250"
                 />
-            
                 <div>
                     <button
                         onClick={(e) => onShowAllClick(e)}
@@ -260,16 +255,9 @@ const AddressGraph = ({headstones, addresses}) => {
                     />
                 </div>
             </div>
-            <div style = {{
-                width: "250px",
-                height: "250px",
-                padding: "15px",
-                border: "solid 3px black"
-            }}>
-                <InfoPanel
-                    data={selected}
-                />
-            </div>
+            <InfoPanel
+                data={selected}
+            />
         </div>
     );
 }
@@ -277,7 +265,6 @@ const AddressGraph = ({headstones, addresses}) => {
 /** 
  * 
  * TODO 
- * - Centered family name in circle 
  * - D3 responsive https://medium.com/@louisemoxy/a-simple-way-to-make-d3-js-charts-svgs-responsive-7afb04bc2e4b
  * - Animate the time slider?
  * - Check TODOs littered throughout.

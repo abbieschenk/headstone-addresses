@@ -5,8 +5,8 @@ import React, {
 
 import { useStaticQuery, graphql } from "gatsby";
 
-
-import AddressGraph from "../components/AddressGraph.js";
+import Layout from "../components/Layout";
+import AddressGraph from "../components/AddressGraph";
 
 const D3Test = () => {
     const [loading, setLoading] = useState(true);
@@ -46,19 +46,18 @@ const D3Test = () => {
     }, [allHeadstonesCsv]);
 
     return (
-        <main>
+        <Layout>
             {loading ? (
-                <h1>Loading</h1>
+                <h1>Loading...</h1>
             ) : (
-                <>
-                <h1>Headstone Addresses</h1>
+            <>
                 <AddressGraph 
                     headstones={allHeadstonesCsv.nodes}
                     addresses={allAddressesCsv.nodes}
                 />
-                </>
+            </>
             )}
-        </main>
+        </Layout>
     );
 }
 

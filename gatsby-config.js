@@ -1,13 +1,21 @@
 module.exports = {
     plugins: [
-        'gatsby-plugin-sass',
+        "gatsby-plugin-sass",
         {
-            resolve: `gatsby-source-filesystem`,
+            resolve: "gatsby-source-filesystem",
             options: {
-              name: `data`,
-              path: `${__dirname}/src/data/`,
+                name: "data",
+                path: `${__dirname}/src/data/`,
             },
-          },
-          `gatsby-transformer-csv`,
+        },
+        "gatsby-transformer-csv",
+        {
+            resolve: "gatsby-plugin-react-svg",
+            options: {
+                rule: {
+                    include: /images/
+                }
+            }
+        }
     ],
 }

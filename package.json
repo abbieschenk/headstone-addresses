@@ -16,12 +16,15 @@
   },
   "dependencies": {
     "d3": "^7.0.0",
+    "feather-icons": "^4.28.0",
     "gatsby": "^3.6.2",
+    "gatsby-plugin-react-svg": "^3.0.1",
     "gatsby-plugin-sass": "^4.7.1",
     "gatsby-source-filesystem": "^3.7.1",
     "gatsby-transformer-csv": "^3.7.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-feather": "^2.0.9",
     "sass": "^1.35.0"
   }
 }

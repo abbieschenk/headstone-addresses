@@ -5,7 +5,7 @@ const InfoPanel = ({data}) => {
 
 
     return (
-        <>
+        <div id="info-panel">
             {data ? 
                 data.Address ? (
                     <div className="info-panel headstone">
@@ -27,7 +27,7 @@ const InfoPanel = ({data}) => {
             )}
     
     
-        </>
+        </div>
     );
 };
 
