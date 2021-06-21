@@ -7,6 +7,7 @@ import React, {
 
 import * as d3 from "d3";
 
+import "../styles/AddressGraph.scss";
 
 import InfoPanel from "./InfoPanel";
 import TimeSlider from "./TimeSlider";
@@ -80,7 +81,6 @@ const AddressGraph = ({headstones, addresses}) => {
             .attr("class", "background")
             .attr("width", "100%")
             .attr("height","100%")
-            .attr("fill", "pink")
             .on("click", () => {
                 setSelected(null);
             });
@@ -91,22 +91,6 @@ const AddressGraph = ({headstones, addresses}) => {
         const svg = d3.select(d3ref.current);
 
         svg.selectAll(".address,.headstone,.connection").remove();
-
-        addresses.forEach((address) => {
-            svg.append("rect")
-                .datum(address)
-                .attr("class", "address")
-                .style("fill", address.Color)
-                .attr("x", address.LocX - 5)
-                .attr("y", address.LocY - 5)
-                .attr("width", 10)
-                .attr("height", 10)
-                .on("click", () => {
-                    setSelected(address);
-                    // TODO should change colour too
-                });
-        });
-
 
         headstones.forEach((headstone) => {
             const address = addresses.find(a => a.Name === headstone.Address);
@@ -135,7 +119,7 @@ const AddressGraph = ({headstones, addresses}) => {
 
             svg.append("circle")
                 .datum(headstone)
-                .attr("class", "headstone")
+                .attr("class", "node headstone")
                 .style("stroke", address.Color)
                 .style("fill", "white")
                 .attr("cx", headstone.LocX)
@@ -144,6 +128,21 @@ const AddressGraph = ({headstones, addresses}) => {
                 .on("click", () => {
                     setSelected(headstone);
                     // TODO should change the colour too
+                });
+        });
+
+        addresses.forEach((address) => {
+            svg.append("rect")
+                .datum(address)
+                .attr("class", "node address")
+                .style("fill", address.Color)
+                .attr("x", address.LocX - 5)
+                .attr("y", address.LocY - 5)
+                .attr("width", 10)
+                .attr("height", 10)
+                .on("click", () => {
+                    setSelected(address);
+                    // TODO should change colour too
                 });
         });
 
@@ -262,7 +261,6 @@ const AddressGraph = ({headstones, addresses}) => {
 /** 
  * 
  * TODO 
- * - On clicking the background, should select "null" -> maybe a rectangle on background?
  * - Centered family name in circle 
  * - D3 responsive https://medium.com/@louisemoxy/a-simple-way-to-make-d3-js-charts-svgs-responsive-7afb04bc2e4b
  * - Animate the time slider?
