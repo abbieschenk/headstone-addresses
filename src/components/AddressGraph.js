@@ -126,24 +126,22 @@ const AddressGraph = ({headstones, addresses}) => {
                 .attr("d", (h) => generatePathData(h.AddressObj, h, "right"))
                 .attr("opacity", 0);
 
-
-        // TODO should have no fill until selected (to show through-lines)
-        // Then add a class on selected that fills it (or fill it through this idk)
-
-        svg.selectAll(".headstone")
+        var headstoneNodes = svg.selectAll("g")
             .data(headstones)
-            .enter().append("circle")
-                .attr("class", "node headstone")
-                .style("stroke", (h) => h.AddressObj.Color)
-                .style("fill", "white")
-                .attr("cx", (h) => h.LocX)
-                .attr("cy", (h) => h.LocY)
-                .attr("r", 5)
-                .on("click", (e, h) => {
-                    setSelected(h);
-                    // TODO should change the colour too
-                });
+            .enter().append("g")
+            .classed("node headstone", true)
+            .attr("transform", function(d){return "translate("+d.LocX+","+ d.LocY + ")"})
+            .on("click", (e, h) => setSelected(h));
 
+        headstoneNodes.append("circle")
+            .attr("r", 5)
+            .style("stroke", (h) => h.AddressObj.Color)
+            .style("stroke", (h) => h.AddressObj.Color)
+       
+        headstoneNodes.append("text")
+            .attr("dx", function(d){return -3.75})
+            .attr("dy", function(d){return 2.5})
+            .text(function(d){return d.LastNameChinese})
 
         svg.selectAll(".address")
             .data(addresses)
@@ -154,10 +152,7 @@ const AddressGraph = ({headstones, addresses}) => {
                 .attr("y", (a) => a.LocY - 5)
                 .attr("width", 10)
                 .attr("height", 10)
-                .on("click", (e, a) => {;
-                    setSelected(a);
-                    // TODO should change colour too
-                });
+                .on("click", (e, a) => setSelected(a));
 
     }, [addresses, headstones]);
 
@@ -170,12 +165,24 @@ const AddressGraph = ({headstones, addresses}) => {
     }, [isInDateRange]);
 
     useEffect(() => {
-        if(selected && selected.Address && !isInDateRange(selected)) {
-            setSelected(null);
-        } else {
-            // TODO change the colour of all selected things
-        }
+        d3.selectAll(".node")
+            .classed("selected", false);
 
+        if(selected) {
+            if(selected.Address) {
+                if(!isInDateRange(selected)) {
+                    setSelected(null);
+                } else {
+                    d3.selectAll(".headstone")
+                        .filter((h) => h === selected)
+                        .classed("selected", true);
+                }
+            } else {
+                d3.selectAll(".address")
+                    .filter((a) => a === selected)
+                    .classed("selected", true);
+            }
+        } 
     }, [selected, isInDateRange]);
 
     useEffect(() => {

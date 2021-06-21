@@ -13,4 +13,25 @@
 
 .node {
     cursor: pointer;
+
+
+    &.headstone {
+
+        circle {
+            fill: rgba(255, 255, 255, 0.8);
+        }
+
+
+        text {
+            fill: black;
+            font-size: 8px;
+        }
+
+        &.selected {
+            circle {
+                fill: red;
+            }
+        }
+
+    }
 }
