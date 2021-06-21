@@ -7,6 +7,7 @@ import React, {
 
 import * as d3 from "d3";
 
+
 import InfoPanel from "./InfoPanel";
 import TimeSlider from "./TimeSlider";
 
@@ -29,19 +30,20 @@ const AddressGraph = ({headstones, addresses}) => {
 
 
     const [timeFilterEnabled, setTimeFilterEnabled] = useState(false);
+    const [showAll, setShowAll] = useState(false);
+    const [showAllButtonText, setShowAllButtonText] = useState("Show All Connections");
     
     const [selected, setSelected] = useState(null);
 
-    const [minYear, setMinYear] = useState(null);
-    const [maxYear, setMaxYear] = useState(null);
+    const [minYear, setMinYear] = useState(minBirthYear);
+    const [maxYear, setMaxYear] = useState(maxBurialYear);
 
     const d3ref = useRef();
     const timeFilterCheckbox = useRef();
 
     const isInDateRange = useCallback((headstone) => {
         return !timeFilterEnabled || 
-                    ((!minYear || (headstone.BirthYear >= minYear)) && 
-                        (!maxYear || (headstone.BurialYear <= maxYear)));
+                    ((headstone.BirthYear >= minYear) && (headstone.BurialYear <= maxYear));
     }, [minYear, maxYear, timeFilterEnabled]);
 
     const onTimeFilterCheckboxClick = useCallback((e) => {
@@ -60,19 +62,45 @@ const AddressGraph = ({headstones, addresses}) => {
         setTimeFilterEnabled(true);
     }, []);
 
+    const onShowAllClick = useCallback((e) => {
+        if(!showAll) {
+            setShowAllButtonText("Show Selected Connections");
+        } else {
+            setShowAllButtonText("Show All Connections");
+        }
+
+        setShowAll(!showAll)
+    }, [showAll]);
+
+
     useEffect(() => {
         const svg = d3.select(d3ref.current);
 
-        svg.selectAll("circle").remove();
+        svg.append("rect")
+            .attr("class", "background")
+            .attr("width", "100%")
+            .attr("height","100%")
+            .attr("fill", "pink")
+            .on("click", () => {
+                setSelected(null);
+            });
+
+    }, []);
+
+    useEffect(() => {
+        const svg = d3.select(d3ref.current);
+
+        svg.selectAll(".address,.headstone,.connection").remove();
 
         addresses.forEach((address) => {
-            svg.append("circle")
+            svg.append("rect")
                 .datum(address)
                 .attr("class", "address")
-                .style("fill", "red")
-                .attr("cx", address.LocX)
-                .attr("cy", address.LocY)
-                .attr("r", 5)
+                .style("fill", address.Color)
+                .attr("x", address.LocX - 5)
+                .attr("y", address.LocY - 5)
+                .attr("width", 10)
+                .attr("height", 10)
                 .on("click", () => {
                     setSelected(address);
                     // TODO should change colour too
@@ -81,9 +109,35 @@ const AddressGraph = ({headstones, addresses}) => {
 
 
         headstones.forEach((headstone) => {
+            const address = addresses.find(a => a.Name === headstone.Address);
+
+            svg.append("path")
+                .attr("class", "connection headstone-to-address")
+                .datum({
+                    origin: headstone,
+                    target: address,
+                })
+                .style("stroke", address.Color)
+                .style("fill", "none")
+                .attr("d", d => generatePathData(d, "left"))
+                .attr("opacity", 0);
+            
+            svg.append("path")
+                .attr("class", "connection address-to-headstone")
+                .datum({
+                    origin: address,
+                    target: headstone,
+                })
+                .style("stroke", address.Color)
+                .style("fill", "none")
+                .attr("d", d => generatePathData(d, "right"))
+                .attr("opacity", 0);
+
             svg.append("circle")
                 .datum(headstone)
                 .attr("class", "headstone")
+                .style("stroke", address.Color)
+                .style("fill", "white")
                 .attr("cx", headstone.LocX)
                 .attr("cy", headstone.LocY)
                 .attr("r", 5)
@@ -91,30 +145,6 @@ const AddressGraph = ({headstones, addresses}) => {
                     setSelected(headstone);
                     // TODO should change the colour too
                 });
-
-            const address = addresses.find(a => a.Name === headstone.Address);
-
-            svg.append("path")
-                .datum({
-                    origin: headstone,
-                    target: address,
-                })
-                .style("stroke", "black")
-                .style("fill", "none")
-                .attr("d", d => generatePathData(d, "left"))
-                .attr("opacity", 0)
-                .lower();
-            
-            svg.append("path")
-                .datum({
-                    origin: address,
-                    target: headstone,
-                })
-                .style("stroke", "black")
-                .style("fill", "none")
-                .attr("d", d => generatePathData(d, "right"))
-                .attr("opacity", 0)
-                .lower();
         });
 
 
@@ -140,13 +170,11 @@ const AddressGraph = ({headstones, addresses}) => {
     useEffect(() => {
         const svg = d3.select(d3ref.current);
 
-        if(selected === null) {
-            svg.selectAll("path").attr("opacity", 0);
-        } else {
+        if(selected !== null || showAll) {
 
             const shouldDraw = (d) => {
-                return selected === d.origin
-                    && ((d.origin.Address && isInDateRange(d.origin)) || isInDateRange(d.target))
+                return ((showAll && !d.origin.Address) || (selected === d.origin))
+                        && ((d.origin.Address && isInDateRange(d.origin)) || isInDateRange(d.target))
             };
 
             svg.selectAll("path")
@@ -172,50 +200,73 @@ const AddressGraph = ({headstones, addresses}) => {
                                     .attr("stroke-dashoffset", 0);
                         }
                     });
+        } else {
+            svg.selectAll("path").attr("opacity", 0);
         }
 
-    }, [selected, isInDateRange]);
+    }, [selected, showAll, isInDateRange]);
 
     return (
-        <>
-            <svg 
-                id="d3"
-                ref={d3ref} 
-                viewBox="0 0 250 250"
-            />
-            <InfoPanel
-                data={selected}
-            />
-            <input
-                type="checkbox"
-                name="Time Slider"
-                ref={timeFilterCheckbox}
-                onChange={(e) => onTimeFilterCheckboxClick(e)}
-            >
-            </input>
+        <div style={
+            {
+                display:"flex",
+                flexDirection: "row",
+            }
             
-            <TimeSlider
-                className={timeFilterEnabled ? "active" : "disabled"}
-                min={minBirthYear}
-                max={maxBurialYear}
-                onMinChange={(d) => { onTimeFilterMinChange(d) }}
-                onMaxChange={(d) => { onTimeFilterMaxChange(d) }}
-            />
-        </>
+        }>
+            <div>
+                <svg 
+                    id="d3"
+                    ref={d3ref} 
+                    viewBox="0 0 250 250"
+                />
+            
+                <div>
+                    <button
+                        onClick={(e) => onShowAllClick(e)}
+                    >
+                        {showAllButtonText}
+                    </button>
+                </div>
+
+                <div>
+                    <input
+                        type="checkbox"
+                        name="Time Slider"
+                        ref={timeFilterCheckbox}
+                        onChange={(e) => onTimeFilterCheckboxClick(e)}
+                    />
+                    <TimeSlider
+                        className={timeFilterEnabled ? "active" : "disabled"}
+                        min={minBirthYear}
+                        max={maxBurialYear}
+                        onMinChange={(d) => { onTimeFilterMinChange(d) }}
+                        onMaxChange={(d) => { onTimeFilterMaxChange(d) }}
+                    />
+                </div>
+            </div>
+            <div style = {{
+                width: "250px",
+                height: "250px",
+                padding: "15px",
+                border: "solid 3px black"
+            }}>
+                <InfoPanel
+                    data={selected}
+                />
+            </div>
+        </div>
     );
 }
 
 /** 
  * 
  * TODO 
- * 
- * - Min / max year based on min birth / max burial dates
- * - Handle null values for birth / burial dates -> they disappear on "min" but not on max, and do not reappear. Do this after toggle.
+ * - On clicking the background, should select "null" -> maybe a rectangle on background?
+ * - Centered family name in circle 
  * - D3 responsive https://medium.com/@louisemoxy/a-simple-way-to-make-d3-js-charts-svgs-responsive-7afb04bc2e4b
  * - Animate the time slider?
- * - Paths should have colours based on the address. See how many addresses there are first.
  * - Check TODOs littered throughout.
- * 
- * */
+ */
 
 export default AddressGraph;

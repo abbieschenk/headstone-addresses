@@ -1,0 +1,89 @@
+/** Time Slider **/
+/** Adapted from https://dev.to/sandra_lewis/building-a-multi-range-slider-in-react-from-scratch-4dl1 **/
+
+$slider-height: 50px;
+$slider-width: 400px;
+
+.slider {
+    position: relative;
+    width: $slider-width;
+}
+  
+.slider__track,
+.slider__range {
+    border-radius: 3px;
+    height: $slider-height;
+    position: absolute;
+}
+  
+.slider__track {
+    background-color: #ced4da;
+    width: 100%;
+    z-index: 1;
+}
+  
+.slider__range {
+    background-color: #9fe5a8;
+    z-index: 2;
+}
+  
+  /* Removing the default appearance */
+.thumb,
+.thumb::-webkit-slider-thumb {
+    -webkit-appearance: none;
+}
+  
+.thumb {
+    pointer-events: none;
+    position: absolute;
+    height: 0;
+    width: $slider-width;
+    outline: none;
+}
+  
+.thumb--left {
+    z-index: 3;
+    margin-left: -1px;
+}
+  
+.thumb--right {
+    z-index: 4;
+}
+
+@mixin thumb-slider {
+    background-color: #f1f5f7;
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 0 1px 1px #ced4da;
+    cursor: pointer;
+    height: $slider-height + 4px;
+    width: 12px;
+    margin-top: $slider-height - 3px;
+    pointer-events: all;
+    position: relative;
+}
+  
+/* For Chrome browsers */
+.thumb::-webkit-slider-thumb {
+    @include thumb-slider();
+}
+
+/* For Firefox browsers */
+.thumb::-moz-range-thumb {
+    @include thumb-slider();
+}
+
+.slider__left-value,
+.slider__right-value {
+    font-size: 12px;
+    margin-top: $slider-height + 5px;
+    position: absolute;
+}
+
+.slider__left-value {
+    left: 6px;
+}
+
+.slider__right-value {
+    right: -4px;
+}

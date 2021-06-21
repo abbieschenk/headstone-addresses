@@ -6,6 +6,7 @@ import React, {
 } from "react";
 
 import PropTypes from "prop-types"
+import "../styles/TimeSlider.scss";
 
 /** Adapted from https://dev.to/sandra_lewis/building-a-multi-range-slider-in-react-from-scratch-4dl1 **/
 

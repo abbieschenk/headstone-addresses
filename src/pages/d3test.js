@@ -17,6 +17,7 @@ const D3Test = () => {
                 nodes {
                     FirstName
                     LastName
+                    LastNameChinese
                     LocX
                     LocY
                     Address
@@ -29,6 +30,7 @@ const D3Test = () => {
                   Name
                   LocX
                   LocY
+                  Color
                 }
             }
         }
