@@ -13,24 +13,24 @@ import InfoPanel from "./InfoPanel";
 import TimeSlider from "./TimeSlider";
 
 // As per https://stackoverflow.com/questions/17156283/d3-js-drawing-arcs-between-two-points-on-map-from-file
-const generatePathData = (data, direction) => {
-    const dx = data.target.LocX - data.origin.LocX,
-          dy = data.target.LocY - data.origin.LocY,
+const generatePathData = (origin, target, direction) => {
+    const dx = target.LocX - origin.LocX,
+          dy = target.LocY - origin.LocY,
           dr = Math.sqrt(dx * dx + dy * dy);
 
     const dirVal = direction === "left" ? 0 : 1;
 
-    return "M" + data.origin.LocX + "," + data.origin.LocY + 
+    return "M" + origin.LocX + "," + origin.LocY + 
            "A" + dr + "," + dr + " 0 0," + dirVal + 
-           " " + data.target.LocX + "," + data.target.LocY;
+           " " + target.LocX + "," + target.LocY;
 };
 
 const AddressGraph = ({headstones, addresses}) => {
     const minBirthYear = Math.min.apply(Math, headstones.map((h) => { return h.BirthYear ? h.BirthYear : Number.MAX_VALUE } ));
     const maxBurialYear = Math.max.apply(Math, headstones.map((h) => { return h.BurialYear ? h.BurialYear : Number.MIN_VALUE } ));
 
-
     const [timeFilterEnabled, setTimeFilterEnabled] = useState(false);
+
     const [showAll, setShowAll] = useState(false);
     const [showAllButtonText, setShowAllButtonText] = useState("Show All Connections");
     
@@ -63,6 +63,20 @@ const AddressGraph = ({headstones, addresses}) => {
         setTimeFilterEnabled(true);
     }, []);
 
+    const drawPath = useCallback((path) => {
+        if(path.attr("opacity") === "0") {
+            const totalLength = path.node().getTotalLength();
+
+            path.attr("stroke-dasharray", totalLength + " " + totalLength)
+                .attr("stroke-dashoffset", totalLength)
+                .attr("opacity", 1)
+                .transition()
+                    .duration(300)
+                    .ease(d3.easeLinear)
+                    .attr("stroke-dashoffset", 0);
+        }
+    }, []);
+
     const onShowAllClick = useCallback((e) => {
         if(!showAll) {
             setShowAllButtonText("Show Selected Connections");
@@ -79,8 +93,6 @@ const AddressGraph = ({headstones, addresses}) => {
 
         svg.append("rect")
             .attr("class", "background")
-            .attr("width", "100%")
-            .attr("height","100%")
             .on("click", () => {
                 setSelected(null);
             });
@@ -92,60 +104,60 @@ const AddressGraph = ({headstones, addresses}) => {
 
         svg.selectAll(".address,.headstone,.connection").remove();
 
-        headstones.forEach((headstone) => {
-            const address = addresses.find(a => a.Name === headstone.Address);
+        headstones.forEach((h) => {
+            h.AddressObj = addresses.find(a => a.Name === h.Address);
+        });
 
-            svg.append("path")
+        svg.selectAll(".headstone-to-address")
+            .data(headstones)
+            .enter().append("path")
                 .attr("class", "connection headstone-to-address")
-                .datum({
-                    origin: headstone,
-                    target: address,
-                })
-                .style("stroke", address.Color)
+                .style("stroke", (h) => h.AddressObj.Color)
                 .style("fill", "none")
-                .attr("d", d => generatePathData(d, "left"))
-                .attr("opacity", 0);
-            
-            svg.append("path")
-                .attr("class", "connection address-to-headstone")
-                .datum({
-                    origin: address,
-                    target: headstone,
-                })
-                .style("stroke", address.Color)
-                .style("fill", "none")
-                .attr("d", d => generatePathData(d, "right"))
+                .attr("d", (h) => generatePathData(h, h.AddressObj, "left"))
                 .attr("opacity", 0);
 
-            svg.append("circle")
-                .datum(headstone)
+        svg.selectAll(".address-to-headstone")
+            .data(headstones)
+            .enter().append("path")
+                .attr("class", "connection address-to-headstone")
+                .style("stroke", (h) => h.AddressObj.Color)
+                .style("fill", "none")
+                .attr("d", (h) => generatePathData(h.AddressObj, h, "right"))
+                .attr("opacity", 0);
+
+
+        // TODO should have no fill until selected (to show through-lines)
+        // Then add a class on selected that fills it (or fill it through this idk)
+
+        svg.selectAll(".headstone")
+            .data(headstones)
+            .enter().append("circle")
                 .attr("class", "node headstone")
-                .style("stroke", address.Color)
+                .style("stroke", (h) => h.AddressObj.Color)
                 .style("fill", "white")
-                .attr("cx", headstone.LocX)
-                .attr("cy", headstone.LocY)
+                .attr("cx", (h) => h.LocX)
+                .attr("cy", (h) => h.LocY)
                 .attr("r", 5)
-                .on("click", () => {
-                    setSelected(headstone);
+                .on("click", (e, h) => {
+                    setSelected(h);
                     // TODO should change the colour too
                 });
-        });
 
-        addresses.forEach((address) => {
-            svg.append("rect")
-                .datum(address)
+
+        svg.selectAll(".address")
+            .data(addresses)
+            .enter().append("rect")
                 .attr("class", "node address")
-                .style("fill", address.Color)
-                .attr("x", address.LocX - 5)
-                .attr("y", address.LocY - 5)
+                .style("fill", (a) => a.Color)
+                .attr("x", (a) => a.LocX - 5)
+                .attr("y", (a) => a.LocY - 5)
                 .attr("width", 10)
                 .attr("height", 10)
-                .on("click", () => {
-                    setSelected(address);
+                .on("click", (e, a) => {;
+                    setSelected(a);
                     // TODO should change colour too
                 });
-        });
-
 
     }, [addresses, headstones]);
 
@@ -169,41 +181,38 @@ const AddressGraph = ({headstones, addresses}) => {
     useEffect(() => {
         const svg = d3.select(d3ref.current);
 
-        if(selected !== null || showAll) {
-
-            const shouldDraw = (d) => {
-                return ((showAll && !d.origin.Address) || (selected === d.origin))
-                        && ((d.origin.Address && isInDateRange(d.origin)) || isInDateRange(d.target))
-            };
-
-            svg.selectAll("path")
-                .filter((d) => !shouldDraw(d))
+        if(showAll) {
+            svg.selectAll(".address-to-headstone")
+                .filter((h) => !isInDateRange(h))
                 .attr("opacity", 0);
+            
+            svg.selectAll(".address-to-headstone")
+                .filter((h) => isInDateRange(h))
+                .each((d, i, nodes) => drawPath(d3.select(nodes[i])));
 
-            svg.selectAll("path")
-                    .filter((d) => shouldDraw(d))
-                    .each((d, i, nodes) => {
-                        
-                        const path = d3.select(nodes[i]);
-                        
-                        if(path.attr("opacity") === "0") {
+        } else if(selected !== null) {
+            if(selected.Address) {
+                svg.selectAll("path")
+                    .filter((h) => selected !== h)
+                    .attr("opacity", 0);
 
-                            const totalLength = path.node().getTotalLength();
-
-                            path.attr("stroke-dasharray", totalLength + " " + totalLength)
-                                .attr("stroke-dashoffset", totalLength)
-                                .attr("opacity", 1)
-                                .transition()
-                                    .duration(300)
-                                    .ease(d3.easeLinear)
-                                    .attr("stroke-dashoffset", 0);
-                        }
-                    });
+                svg.selectAll(".headstone-to-address")
+                    .filter((h) => selected === h)
+                    .each((d, i, nodes) => drawPath(d3.select(nodes[i])));
+            } else {
+                svg.selectAll("path")
+                    .filter((h) => selected !== h.AddressObj || !isInDateRange(h))
+                    .attr("opacity", 0);
+                
+                svg.selectAll(".address-to-headstone")
+                    .filter((h) => ((selected === h.AddressObj) && isInDateRange(h)))
+                    .each((d, i, nodes) => drawPath(d3.select(nodes[i])));
+                }
         } else {
             svg.selectAll("path").attr("opacity", 0);
         }
 
-    }, [selected, showAll, isInDateRange]);
+    }, [selected, showAll, isInDateRange, drawPath]);
 
     return (
         <div style={
