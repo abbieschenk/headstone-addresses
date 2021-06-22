@@ -1,8 +1,4 @@
-/** Colors **/
-
-$color-green: #7c9390;
-$color-tan: #a68e75;
-$color-brown: #464436;
+@use './_colors';
 
 /** Fonts **/
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
@@ -44,15 +40,16 @@ body {
     @include body-regular();
     
     margin: 0px;
-    background-color: lighten($color-tan, 34%);
+    background-color: colors.$background;
 }
 
 a {
-    color: $color-green;
+    color: colors.$green-darker;
     text-decoration: none;
 
     &:hover {
-        color: $color-tan;
+        color: colors.$green;
+        text-decoration: underline;
     }
 }
 
@@ -61,8 +58,8 @@ a#home {
     align-items: center;
 
     &:hover > #site-logo > svg{
-        .border { stroke: $color-tan;}
-        .left { fill: $color-green;}
+        .border { stroke: colors.$tan;}
+        .left { fill: colors.$green;}
     }
 
     #site-logo {
@@ -74,9 +71,9 @@ a#home {
         height: $logo-size;
     
         svg {
-            .border { stroke: $color-green; fill: white; stroke-width: 30px; }
-            .left { fill: $color-tan; }
-            .right { fill: $color-brown; }
+            .border { stroke: colors.$green; fill: white; stroke-width: 30px; }
+            .left { fill: colors.$tan; }
+            .right { fill: colors.$brown; }
         }
     }
 }
@@ -93,7 +90,7 @@ nav {
 
     padding-bottom: 10px;
 
-    border-bottom: $color-tan solid 1px;
+    border-bottom: colors.$tan solid 1px;
 
     @include default-width();
     margin-top: 5px;

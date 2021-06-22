@@ -1,26 +1,36 @@
 /** Styling for the d3.js AddressGraph **/
 
+@use "./_colors";
+
 /** Components **/
 
 #address-graph {
     display: flex;
 
     .center-column {
-        min-width: 50%;
+        min-width: 75vw;
     }
 }
 
+#d3 {
+    border: 1px solid colors.$green;
+}
+
 #info-panel {
-    width: 250px;
+    width: 100%;
     height: 250px;
     padding: 15px;
-    border: solid 3px black;
+    
+    border: solid 1px colors.$green;
+    border-left: none;
+
+    background-color: colors.$background-lighter;
 }
 
 /** Address Graph **/
 
 .background {
-    fill: #A8A8A8;
+    fill: colors.$background-lighter;
 
     width: 100%;
     height: 100%;
@@ -36,19 +46,104 @@
     &.headstone {
 
         circle {
-            fill: rgba(255, 255, 255, 0.8);
+            fill: rgba(255, 255, 255, 0.75);
         }
 
         text {
             fill: black;
-            font-size: 8px;
+            font-size: 7px;
         }
 
         &.selected {
             circle {
-                fill: red;
+                // fill: red;
+            }
+
+            text {
+                fill: white;
             }
         }
 
+    }
+}
+
+/** Toggle Buttons **/
+
+.toggle-panel {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.toggle-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    font-size: 0.9rem;
+    
+    padding: 5px;
+}
+
+.toggle-text {
+    margin-left: 5px;
+}
+
+input.toggle {
+    $size: 40px;
+
+
+    display: none;
+
+    & + label {
+        border: 1px solid colors.$green-lighter;
+
+        display: block;
+        position: relative;
+
+        cursor: pointer;
+        outline: none;
+        user-select: none;
+
+        padding: 2px;
+        width: $size;
+        height: $size / 2;
+        background-color: #dddddd;
+        border-radius: $size / 2;
+
+        &:before, &:after {
+            display: block;
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            bottom: 1px;
+            content: "";
+        }
+
+        &:before {
+            right: 1px;
+            background-color: colors.$light-grey;
+            border-radius: $size / 2;
+            transition: background 0.3s;
+        }
+
+        &:after {
+            // The toggle knob
+            
+            width: $size / 2;
+            background-color: white;
+            border-radius: 100%;
+            border: 1px solid colors.$green-lighter;
+            // box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            transition: margin 0.1s;
+        }
+    }
+
+    &:checked + label:before {
+        background-color: colors.$green;
+    }
+
+    &:checked + label:after {
+        margin-left: $size / 2;
     }
 }

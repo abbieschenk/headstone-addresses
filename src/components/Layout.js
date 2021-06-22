@@ -40,7 +40,7 @@ const Layout = ({ children }) => {
                 {children}
             </main>
             <footer>
-                Copyright information
+                © Elaine Yip 2021. Supported by the Edmonton Heritage Council and the City of Edmonton.
             </footer>
         </>
     )

@@ -7,6 +7,11 @@ import React, {
 
 import * as d3 from "d3";
 
+import {
+    ToggleLeft,
+    ToggleRight
+} from "react-feather";
+
 import "../styles/AddressGraph.scss";
 
 import InfoPanel from "./InfoPanel";
@@ -40,27 +45,31 @@ const AddressGraph = ({headstones, addresses}) => {
     const [maxYear, setMaxYear] = useState(maxBurialYear);
 
     const d3ref = useRef();
-    const timeFilterCheckbox = useRef();
+    const timeToggle = useRef();
 
     const isInDateRange = useCallback((headstone) => {
         return !timeFilterEnabled || 
                     ((headstone.BirthYear >= minYear) && (headstone.BurialYear <= maxYear));
     }, [minYear, maxYear, timeFilterEnabled]);
 
-    const onTimeFilterCheckboxClick = useCallback((e) => {
+    const onTimeToggle = useCallback((e) => {
         setTimeFilterEnabled(e.target.checked);
     }, []);
 
     const onTimeFilterMinChange = useCallback((min) => {
         setMinYear(min);
-        timeFilterCheckbox.current.checked = true;
+        timeToggle.current.checked = true;
         setTimeFilterEnabled(true);
     }, []);
 
     const onTimeFilterMaxChange = useCallback((max) => {
         setMaxYear(max);
-        timeFilterCheckbox.current.checked = true;
+        timeToggle.current.checked = true;
         setTimeFilterEnabled(true);
+    }, []);
+
+    const onConnectionsToggle = useCallback((e) => {
+        setShowAll(e.target.checked);
     }, []);
 
     const drawPath = useCallback((path) => {
@@ -76,17 +85,6 @@ const AddressGraph = ({headstones, addresses}) => {
                     .attr("stroke-dashoffset", 0);
         }
     }, []);
-
-    const onShowAllClick = useCallback((e) => {
-        if(!showAll) {
-            setShowAllButtonText("Show Selected Connections");
-        } else {
-            setShowAllButtonText("Show All Connections");
-        }
-
-        setShowAll(!showAll)
-    }, [showAll]);
-
 
     useEffect(() => {
         const svg = d3.select(d3ref.current);
@@ -139,9 +137,9 @@ const AddressGraph = ({headstones, addresses}) => {
             .style("stroke", (h) => h.AddressObj.Color)
        
         headstoneNodes.append("text")
-            .attr("dx", function(d){return -3.75})
+            .attr("dx", function(d){return -3.5})
             .attr("dy", function(d){return 2.5})
-            .text(function(d){return d.LastNameChinese})
+            .text(function(d){return d.LastNameChinese[0]})
 
         svg.selectAll(".address")
             .data(addresses)
@@ -168,7 +166,9 @@ const AddressGraph = ({headstones, addresses}) => {
         const svg = d3.select(d3ref.current);
 
         svg.selectAll(".node")
-            .classed("selected", false);
+            .classed("selected", false)
+            .select("circle")
+            .style("fill", null);
 
         if(selected) {
             if(selected.Address) {
@@ -177,7 +177,9 @@ const AddressGraph = ({headstones, addresses}) => {
                 } else {
                     d3.selectAll(".headstone")
                         .filter((h) => h === selected)
-                        .classed("selected", true);
+                        .classed("selected", true)
+                        .select("circle")
+                        .style("fill", (h) => h.AddressObj.Color);
                 }
             } else {
                 d3.selectAll(".address")
@@ -231,21 +233,30 @@ const AddressGraph = ({headstones, addresses}) => {
                     ref={d3ref} 
                     viewBox="0 0 500 250"
                 />
-                <div>
-                    <button
-                        onClick={(e) => onShowAllClick(e)}
-                    >
-                        {showAllButtonText}
-                    </button>
+                <div className="toggle-panel">
+                    <div className="toggle-button" id="time-toggle-button">
+                        <input 
+                            id="time-toggle" 
+                            className="toggle" 
+                            type="checkbox" 
+                            ref={timeToggle}
+                            onChange={(e) => onTimeToggle(e)}
+                        />
+                        <label htmlFor="time-toggle"/>
+                        <div className="toggle-text">Filter by Date</div>
+                    </div>
+                    <div className="toggle-button" id="connections-toggle-button">
+                        <input
+                            id="connections-toggle"
+                            className="toggle"
+                            type="checkbox"
+                            onChange={(e) => onConnectionsToggle(e)}
+                        />
+                        <label htmlFor="connections-toggle"/>
+                        <div className="toggle-text">Show All Connections</div>
+                    </div>
                 </div>
-
                 <div>
-                    <input
-                        type="checkbox"
-                        name="Time Slider"
-                        ref={timeFilterCheckbox}
-                        onChange={(e) => onTimeFilterCheckboxClick(e)}
-                    />
                     <TimeSlider
                         className={timeFilterEnabled ? "active" : "disabled"}
                         min={minBirthYear}
@@ -265,7 +276,6 @@ const AddressGraph = ({headstones, addresses}) => {
 /** 
  * 
  * TODO 
- * - D3 responsive https://medium.com/@louisemoxy/a-simple-way-to-make-d3-js-charts-svgs-responsive-7afb04bc2e4b
  * - Animate the time slider?
  * - Check TODOs littered throughout.
  */

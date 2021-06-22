@@ -1,8 +1,26 @@
+@use "./_colors";
+
 /** Time Slider **/
 /** Adapted from https://dev.to/sandra_lewis/building-a-multi-range-slider-in-react-from-scratch-4dl1 **/
 
 $slider-height: 50px;
-$slider-width: 400px;
+$slider-width: 50vw;
+
+.timeslider {
+    &.disabled {
+        .slider__range {
+            background-color: colors.$green-lightest;
+        }
+
+        .thumb::-moz-range-thumb {
+            background-color: colors.$green-lighter;
+        }
+
+        .thumb::-webkit-slider-thumb {
+            background-color: colors.$green-lighter;
+        }
+    }
+}
 
 .slider {
     position: relative;
@@ -17,13 +35,13 @@ $slider-width: 400px;
 }
   
 .slider__track {
-    background-color: #ced4da;
+    background-color: colors.$light-grey;
     width: 100%;
     z-index: 1;
 }
   
 .slider__range {
-    background-color: #9fe5a8;
+    background-color: colors.$green-lighter;
     z-index: 2;
 }
   
@@ -51,10 +69,11 @@ $slider-width: 400px;
 }
 
 @mixin thumb-slider {
-    background-color: #f1f5f7;
+    background-color: colors.$green;
+
     border: none;
     border-radius: 0;
-    box-shadow: 0 0 1px 1px #ced4da;
+    box-shadow: 0 0 1px 1px colors.$light-grey;
     cursor: pointer;
     height: $slider-height + 4px;
     width: 12px;
