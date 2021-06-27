@@ -1,0 +1,22 @@
+/** Fonts **/
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+$header-font: 'EB Garamond', serif;
+$body-font: 'Open Sans', sans-serif;
+
+@mixin header($weight) {
+    font-family: $header-font;
+    font-style: normal;
+    font-weight: $weight;
+}
+@mixin header-bold { @include header(700); }
+@mixin header-medium { @include header(500); }
+@mixin header-regular { @include header(400); }
+    
+@mixin body($weight) {
+    font-family: $body-font;
+    font-style: normal;
+    font-weight: $weight;
+}
+@mixin body-bold { @include body(700); }
+@mixin body-regular { @include body(400); }

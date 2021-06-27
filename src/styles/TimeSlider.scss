@@ -4,9 +4,11 @@
 /** Adapted from https://dev.to/sandra_lewis/building-a-multi-range-slider-in-react-from-scratch-4dl1 **/
 
 $slider-height: 50px;
-$slider-width: 50vw;
+$slider-width: 75vw;
 
 .timeslider {
+    height: 80px;
+
     &.disabled {
         .slider__range {
             background-color: colors.$green-lightest;

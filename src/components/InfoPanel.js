@@ -1,9 +1,6 @@
 import React from "react";
 
-
 const InfoPanel = ({data}) => {
-
-
     return (
         <div id="info-panel">
             {data ? 

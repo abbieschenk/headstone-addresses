@@ -1,12 +1,12 @@
 /** Styling for the d3.js AddressGraph **/
-
+@use "sass:math";
 @use "./_colors";
 
 /** Components **/
 
 #address-graph {
     display: flex;
-
+    
     .center-column {
         min-width: 75vw;
     }
@@ -98,6 +98,8 @@ input.toggle {
     & + label {
         border: 1px solid colors.$green-lighter;
 
+        font-size: 0rem;
+        
         display: block;
         position: relative;
 
@@ -107,9 +109,9 @@ input.toggle {
 
         padding: 2px;
         width: $size;
-        height: $size / 2;
+        height: math.div($size, 2);
         background-color: #dddddd;
-        border-radius: $size / 2;
+        border-radius: math.div($size, 2);
 
         &:before, &:after {
             display: block;
@@ -123,14 +125,14 @@ input.toggle {
         &:before {
             right: 1px;
             background-color: colors.$light-grey;
-            border-radius: $size / 2;
+            border-radius: math.div($size, 2);
             transition: background 0.3s;
         }
 
         &:after {
             // The toggle knob
             
-            width: $size / 2;
+            width: math.div($size, 2);
             background-color: white;
             border-radius: 100%;
             border: 1px solid colors.$green-lighter;
@@ -144,6 +146,6 @@ input.toggle {
     }
 
     &:checked + label:after {
-        margin-left: $size / 2;
+        margin-left: math.div($size, 2);
     }
 }

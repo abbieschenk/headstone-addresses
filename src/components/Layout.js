@@ -8,7 +8,7 @@ import {
     Instagram
 } from "react-feather";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, mainClass }) => {
     return (
         <>
             <header>
@@ -36,7 +36,7 @@ const Layout = ({ children }) => {
                     </div>
                 </nav>
             </header>
-            <main>
+            <main className={mainClass}>
                 {children}
             </main>
             <footer>

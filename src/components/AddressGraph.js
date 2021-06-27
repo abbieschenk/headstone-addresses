@@ -7,11 +7,6 @@ import React, {
 
 import * as d3 from "d3";
 
-import {
-    ToggleLeft,
-    ToggleRight
-} from "react-feather";
-
 import "../styles/AddressGraph.scss";
 
 import InfoPanel from "./InfoPanel";
@@ -37,7 +32,6 @@ const AddressGraph = ({headstones, addresses}) => {
     const [timeFilterEnabled, setTimeFilterEnabled] = useState(false);
 
     const [showAll, setShowAll] = useState(false);
-    const [showAllButtonText, setShowAllButtonText] = useState("Show All Connections");
     
     const [selected, setSelected] = useState(null);
 
@@ -242,7 +236,7 @@ const AddressGraph = ({headstones, addresses}) => {
                             ref={timeToggle}
                             onChange={(e) => onTimeToggle(e)}
                         />
-                        <label htmlFor="time-toggle"/>
+                        <label htmlFor="time-toggle">Filter by Date</label>
                         <div className="toggle-text">Filter by Date</div>
                     </div>
                     <div className="toggle-button" id="connections-toggle-button">
@@ -252,19 +246,17 @@ const AddressGraph = ({headstones, addresses}) => {
                             type="checkbox"
                             onChange={(e) => onConnectionsToggle(e)}
                         />
-                        <label htmlFor="connections-toggle"/>
+                        <label htmlFor="connections-toggle">Show All Connections</label>
                         <div className="toggle-text">Show All Connections</div>
                     </div>
                 </div>
-                <div>
-                    <TimeSlider
-                        className={timeFilterEnabled ? "active" : "disabled"}
-                        min={minBirthYear}
-                        max={maxBurialYear}
-                        onMinChange={(d) => { onTimeFilterMinChange(d) }}
-                        onMaxChange={(d) => { onTimeFilterMaxChange(d) }}
-                    />
-                </div>
+                <TimeSlider
+                    className={timeFilterEnabled ? "active" : "disabled"}
+                    min={minBirthYear}
+                    max={maxBurialYear}
+                    onMinChange={(d) => { onTimeFilterMinChange(d) }}
+                    onMaxChange={(d) => { onTimeFilterMaxChange(d) }}
+                />
             </div>
             <InfoPanel
                 data={selected}
@@ -272,12 +264,5 @@ const AddressGraph = ({headstones, addresses}) => {
         </div>
     );
 }
-
-/** 
- * 
- * TODO 
- * - Animate the time slider?
- * - Check TODOs littered throughout.
- */
 
 export default AddressGraph;
