@@ -15,22 +15,34 @@ const Index = () => {
         query  {
             allHeadstonesCsv {
                 nodes {
-                    FirstName
-                    LastName
+                    CemeteryName
                     LastNameChinese
+                    LastNameEnglish
+                    FirstNameEnglish
+                    BirthYear
+                    DeathYear
+                    Section
+                    Block
+                    Plot
+                    Note
+                    FullNameChinese
+                    HeadstoneNotes
+                    Province
+                    City
+                    Town
+                    Village
+                    Neighbourhood
                     LocX
                     LocY
-                    Address
-                    BirthYear
-                    BurialYear
                 }
             }
             allAddressesCsv {
                 nodes {
-                  Name
-                  LocX
-                  LocY
-                  Color
+                    NameEnglish
+                    NameChinese
+                    LocX
+                    LocY
+                    Color
                 }
             }
         }
