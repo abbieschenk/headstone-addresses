@@ -41,6 +41,19 @@
     opacity: 0.9;
 }
 
+.edmonton {
+    &.cemetery {
+        fill: none;
+        stroke: colors.$green-lighter;
+        opacity: 0.5;
+    }
+
+    &.river {
+        fill: none;
+        stroke: lightskyblue;
+    }
+}
+
 .connection {
     pointer-events: none;
 }

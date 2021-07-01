@@ -11,6 +11,7 @@ import "../styles/AddressGraph.scss";
 
 import InfoPanel from "./InfoPanel";
 import TimeSlider from "./TimeSlider";
+import { schemeBrBG } from "d3";
 
 // Adapted from https://stackoverflow.com/questions/17156283/d3-js-drawing-arcs-between-two-points-on-map-from-file
 const generatePathData = (origin, target, transform) => {
@@ -118,7 +119,25 @@ const AddressGraph = ({headstones, addresses}) => {
     useEffect(() => {
         const svg = d3.select(d3ref.current);
 
-        svg.selectAll(".address,.headstone,.connection").remove();
+        svg.selectAll(".address,.headstone,.connection,.china,.edmonton").remove();
+
+
+        svg.append("path")
+            .attr("class", "edmonton cemetery mount-pleasant")
+            .attr("d", "M687.741,489.144l0,305.885l-142.15,0l-55.003,-100.127l171.653,-205.758l25.5,0Z");
+
+        svg.append("path")
+            .attr("class", "edmonton cemetery edmonton-cemetery")
+            .attr("d", "M220.976,389.48l-153.841,-0l-1.642,-261.584l244.84,0l0,105.364l-68.718,0l-22.281,15.377l1.642,140.843Z");
+
+        svg.append("path")
+            .attr("class", "edmonton cemetery beechmount")
+            .attr("d", "M697.708,54.604l69.952,0l0,262.687l-69.928,-0l-0.024,-262.687Z");
+
+        svg.append("path")
+            .attr("class", "edmonton river")
+            .attr("d", "M11.25,727.718l211.36,-267.912l296.494,-16.665l344.548,-76.374");
+
 
         const maxLocX  = Math.max.apply(Math, headstones.map((h) => { return parseInt(h.LocX) } ));
         const maxLocY = Math.max.apply(Math, headstones.map((h) => { return parseInt(h.LocY) } ));
@@ -159,8 +178,6 @@ const AddressGraph = ({headstones, addresses}) => {
         
         });
 
-        
-
         svg.selectAll(".headstone")
             .data(headstones)
             .enter().append("circle")
@@ -173,20 +190,16 @@ const AddressGraph = ({headstones, addresses}) => {
                     setSelected(h);
                 });
 
-        // svg.append("rect")
-        //     .attr("class", "background-china")
-        //     .attr("fill", "white")
-        //     .attr("width", WIDTH / 3)
-        //     .attr("height", HEIGHT);
 
         svg.append("path")
             .attr("class", "china")
             .attr("stroke", "black")
-            .attr("fill", "none")
-            .attr("d", "M0,223.418l18.078,0.397l51.785,-14.48l26.282,-22.325l20.839,-44.059l-20.991,-41.825l22.792,-23.148l-27.123,-3.895l10.219,-23.652l29.294,1.628l27.345,-24.365l6.12,-27.694l-164.64,-0l0,223.418Z");
-
+            .attr("d", "M0,223.418l18.078,0.397l51.785,-14.48l26.282,-22.325l20.839,-44.059l-20.991," + 
+                        "-41.825l22.792,-23.148l-27.123,-3.895l10.219,-23.652l29.294,1.628l27.345," +
+                        "-24.365l6.12,-27.694l-164.64,-0l0,223.418Z");
+                        
         svg.append("path")
-            .attr("class", "hainan")
+            .attr("class", "china hainan")
             .attr("stroke", "black")
             .attr("fill", "none")
             .attr("d", "M19.753,232.191l-11.115,6.938l5.712,10.871l10.437,-6.539l3.089,-8.37l-8.123,-2.9Z");
@@ -227,9 +240,21 @@ const AddressGraph = ({headstones, addresses}) => {
             .translateExtent([[-1000, -750], [1000, 200]])
             .on('zoom', (event) => {
             
-                svg.selectAll(".headstone")
+                svg.selectAll(".headstone,.edmonton")
                     .attr("transform", event.transform);
 
+
+                // TODO This is a massive hack. 
+                // I'm not sure why this is necessary, but it works for now to get this to release.
+                svg.selectAll(".edmonton")
+                    .attr("transform" , 
+                            "translate(" + 
+                                ((-86.5 * (event.transform.k ? event.transform.k : 1)) + (event.transform.x ? event.transform.x : 0)) +
+                            " " +
+                                ((-730 * (event.transform.k ? event.transform.k : 1)) + (event.transform.y ? event.transform.y : 0)) +
+                            ") scale(" + 
+                                (0 + (event.transform && event.transform.k ? event.transform.k : 0)) + ")");
+              
                 svg.selectAll(".headstone-to-address")
                     .attr("d", (h) => generatePathData(h, h.AddressObj, event.transform));
 
