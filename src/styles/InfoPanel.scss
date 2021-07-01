@@ -1,5 +1,5 @@
-@use "./_colors";
-@use "./_widths";
+@use "./colors";
+@use "./widths";
 
 .info-panel {
     width: 25vw;
@@ -31,12 +31,21 @@
            display: flex;
            flex-direction: row;
            justify-content: space-between;
+
+
        }
+        .section {
+            margin: 5px;
+        }
     }
 
     @media (max-width: widths.$break-max-phone-vertical) {
         .info {
             font-size: 0.8rem;
+        }
+
+        .section {
+            margin: 0;
         }
     }
 }
