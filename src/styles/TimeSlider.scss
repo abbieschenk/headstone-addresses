@@ -1,10 +1,19 @@
-@use "./_colors";
+@use "./colors";
+@use "./widths";
 
 /** Time Slider **/
 /** Adapted from https://dev.to/sandra_lewis/building-a-multi-range-slider-in-react-from-scratch-4dl1 **/
 
 $slider-height: 50px;
 $slider-width: 75vw;
+
+@mixin width {
+    width: $slider-width;
+
+    @media (max-width: widths.$break-max-screen-third) {
+        width: 95vw;
+     }
+}
 
 .timeslider {
     height: 80px;
@@ -26,7 +35,8 @@ $slider-width: 75vw;
 
 .slider {
     position: relative;
-    width: $slider-width;
+
+    @include width();
 }
   
 .slider__track,
@@ -57,8 +67,9 @@ $slider-width: 75vw;
     pointer-events: none;
     position: absolute;
     height: 0;
-    width: $slider-width;
     outline: none;
+
+    @include width();
 }
   
 .thumb--left {

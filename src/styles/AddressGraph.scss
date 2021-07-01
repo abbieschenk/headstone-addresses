@@ -1,6 +1,7 @@
 /** Styling for the d3.js AddressGraph **/
 @use "sass:math";
-@use "./_colors";
+@use "./colors";
+@use "./widths";
 
 /** Components **/
 
@@ -8,8 +9,17 @@
     display: flex;
     
     .center-column {
-        min-width: 75vw;
+        width: 75vw;
     }
+
+            
+    @media (max-width: widths.$break-max-screen-third) {
+        flex-direction: column;
+
+        .center-column {
+            width: 95vw;
+        }
+     }
 }
 
 #d3 {

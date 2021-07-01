@@ -1,5 +1,6 @@
-@use './_colors';
-@use './_fonts';
+@use './colors';
+@use './fonts';
+@use './widths';
 
 /** Widths **/
 @mixin centered($max-width) {
@@ -13,17 +14,33 @@
 }
 
 /** Standard Elements **/
+html {
+    scroll-behavior: smooth;
+}
+
 
 body {
     @include fonts.body-regular();
     
     margin: 0px;
     background-color: colors.$background;
+
+    position: relative;
+    min-height: 100vh;
 }
 
 h1 {
     @include fonts.header-bold();
+
     font-size: 2.4rem;
+
+    @media (max-width: widths.$break-max-screen-third) {
+        font-size: 2.0rem;
+    }
+
+    @media (max-width: widths.$break-max-phone-vertical) {
+        font-size: 1.8rem;
+    }
 }
 
 a {
@@ -34,6 +51,10 @@ a {
         color: colors.$green;
         text-decoration: underline;
     }
+}
+
+main {
+    padding-bottom: 2.0rem;
 }
 
 a#home {
@@ -57,6 +78,10 @@ a#home {
             .border { stroke: colors.$green; fill: white; stroke-width: 30px; }
             .left { fill: colors.$tan; }
             .right { fill: colors.$brown; }
+        }
+    
+        @media (max-width: widths.$break-max-phone-vertical) {
+            margin-right: 5px;
         }
     }
 }
@@ -100,6 +125,10 @@ nav {
             }
         }
     }
+
+    @media (max-width: widths.$break-max-phone-vertical) {
+        font-size: 1.2rem;
+    }
 }
 
 main {
@@ -116,6 +145,9 @@ footer {
     
     left: 0;
     right: 0;
+    bottom: 0;
+
+    height: 2.0em;
 
     @include fonts.header-medium();
 }

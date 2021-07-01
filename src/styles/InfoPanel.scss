@@ -1,16 +1,42 @@
 @use "./_colors";
+@use "./_widths";
 
-#info-panel {
-    width: 100%;
-    height: 250px;
-    padding: 15px;
+.info-panel {
+    width: 25vw;
+    
+    height: 100%;
+    min-height: 200px;
     
     border: solid 1px colors.$green;
-    border-left: none;
+    // border-left: none;
 
     background-color: colors.$background-lighter;
 
+    font-size: 1.0rem;
+
     .section {
         padding-bottom: 15px;
+    }
+
+    .info {
+        padding: 15px;
+    }
+
+    @media (max-width: widths.$break-max-screen-third) {
+        width: 95vw;
+
+        min-height: 100px;
+       
+       .info {
+           display: flex;
+           flex-direction: row;
+           justify-content: space-between;
+       }
+    }
+
+    @media (max-width: widths.$break-max-phone-vertical) {
+        .info {
+            font-size: 0.8rem;
+        }
     }
 }

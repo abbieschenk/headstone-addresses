@@ -4,10 +4,10 @@ import "../styles/InfoPanel.scss";
 
 const InfoPanel = ({data}) => {
     return (
-        <div id="info-panel">
+        <div className="info-panel">
             {data ? 
                 data.City ? (
-                    <div className="info-panel headstone">
+                    <div className="info headstone">
                         <div className="section">
                             <div>
                                 <strong>{data.FullNameChinese}</strong> {data.FirstNameEnglish} {data.LastNameEnglish}
@@ -43,13 +43,13 @@ const InfoPanel = ({data}) => {
                         )}
                     </div>
                 ) : ( 
-                    <div className="info-panel address">
+                    <div className="info address">
                         <div>
                             <strong>{data.NameChinese}</strong> {data.NameEnglish}
                         </div>
                     </div>
             ) : (
-                <div className="info-panel empty" />
+                <div className="info empty" />
             )}
     
     

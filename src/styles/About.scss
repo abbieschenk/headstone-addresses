@@ -1,14 +1,21 @@
 @use './fonts';
 @use './colors';
+@use './widths';
 
 .about {
     display: flex;
     justify-content: center;
 
-
     padding-top: 60px;
     min-height: 600px;
 
+    @media (max-width: widths.$break-max-screen-third) {
+        flex-direction: column;
+    }
+
+    img {
+        width: 100%;
+    }
 }
 
 .about-background {
@@ -21,6 +28,7 @@
 
 .about-content {
    padding: 10px;
+   min-height: 600px;
 }
 
 .about-menu {
@@ -31,6 +39,11 @@
     flex-direction: column;
 
     padding-right: 30px;
+
+    @media (max-width: widths.$break-max-screen-third) {
+        flex-direction: row;
+        justify-content: space-around;
+    }
 }
     .about-link {
         padding-bottom: 15px;
