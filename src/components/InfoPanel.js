@@ -89,7 +89,7 @@ const InfoPanel = ({data}) => {
                 ) : ( 
                     <div className="info-panel address">
                         <div>
-                            <strong>Name:</strong>  {data.Name}
+                            <strong>Name:</strong>  {data.NameEnglish}
                         </div>
                     </div>
             ) : (

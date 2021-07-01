@@ -36,6 +36,11 @@
     height: 100%;
 }
 
+.china {
+    fill: colors.$background-lighter;
+    opacity: 0.9;
+}
+
 .connection {
     pointer-events: none;
 }

@@ -112,13 +112,14 @@ const AddressGraph = ({headstones, addresses}) => {
                 setSelected(null);
             });
 
+ 
     }, []);
 
     useEffect(() => {
         const svg = d3.select(d3ref.current);
 
         svg.selectAll(".address,.headstone,.connection").remove();
-        
+
         const maxLocX  = Math.max.apply(Math, headstones.map((h) => { return parseInt(h.LocX) } ));
         const maxLocY = Math.max.apply(Math, headstones.map((h) => { return parseInt(h.LocY) } ));
         
@@ -158,6 +159,38 @@ const AddressGraph = ({headstones, addresses}) => {
         
         });
 
+        
+
+        svg.selectAll(".headstone")
+            .data(headstones)
+            .enter().append("circle")
+                .attr("class", "node headstone")
+                .style("fill", (h) => h.AddressObj.Color)
+                .attr("cx", (h) => h.LocX)
+                .attr("cy", (h) => h.LocY)
+                .attr("r", 2)
+                .on("click", (e, h) => {
+                    setSelected(h);
+                });
+
+        // svg.append("rect")
+        //     .attr("class", "background-china")
+        //     .attr("fill", "white")
+        //     .attr("width", WIDTH / 3)
+        //     .attr("height", HEIGHT);
+
+        svg.append("path")
+            .attr("class", "china")
+            .attr("stroke", "black")
+            .attr("fill", "none")
+            .attr("d", "M0,223.418l18.078,0.397l51.785,-14.48l26.282,-22.325l20.839,-44.059l-20.991,-41.825l22.792,-23.148l-27.123,-3.895l10.219,-23.652l29.294,1.628l27.345,-24.365l6.12,-27.694l-164.64,-0l0,223.418Z");
+
+        svg.append("path")
+            .attr("class", "hainan")
+            .attr("stroke", "black")
+            .attr("fill", "none")
+            .attr("d", "M19.753,232.191l-11.115,6.938l5.712,10.871l10.437,-6.539l3.089,-8.37l-8.123,-2.9Z");
+
         svg.selectAll(".headstone-to-address")
             .data(headstones)
             .enter().append("path")
@@ -176,18 +209,6 @@ const AddressGraph = ({headstones, addresses}) => {
                 .attr("d", (h) => generatePathData(h.AddressObj, h))
                 .attr("opacity", 0);
 
-        svg.selectAll(".headstone")
-            .data(headstones)
-            .enter().append("circle")
-                .attr("class", "node headstone")
-                .style("fill", (h) => h.AddressObj.Color)
-                .attr("cx", (h) => h.LocX)
-                .attr("cy", (h) => h.LocY)
-                .attr("r", 2)
-                .on("click", (e, h) => {
-                    setSelected(h);
-                });
-
         svg.selectAll(".address")
             .data(addresses)
             .enter().append("rect")
@@ -195,8 +216,8 @@ const AddressGraph = ({headstones, addresses}) => {
                 .style("fill", (a) => a.Color)
                 .attr("x", (a) => a.LocX - 5)
                 .attr("y", (a) => a.LocY)
-                .attr("width", 10)
-                .attr("height", 10)
+                .attr("width", 7)
+                .attr("height", 7)
                 .on("click", (e, a) => {
                     setSelected(a);
                 });
@@ -279,7 +300,7 @@ const AddressGraph = ({headstones, addresses}) => {
 
         } else if(selected) {
             if(selected.City) {
-                svg.selectAll("path")
+                svg.selectAll(".connection")
                     .filter((h) => selected !== h)
                     .attr("opacity", 0);
 
@@ -287,7 +308,7 @@ const AddressGraph = ({headstones, addresses}) => {
                     .filter((h) => selected === h)
                     .each((d, i, nodes) => drawPath(d3.select(nodes[i])));
             } else {
-                svg.selectAll("path")
+                svg.selectAll(".connection")
                     .filter((h) => selected !== h.AddressObj || !isInDateRange(h))
                     .attr("opacity", 0);
                 
@@ -296,7 +317,7 @@ const AddressGraph = ({headstones, addresses}) => {
                     .each((d, i, nodes) => drawPath(d3.select(nodes[i])));
             }
         } else {
-            svg.selectAll("path").attr("opacity", 0);
+            svg.selectAll(".connection").attr("opacity", 0);
         }
 
     }, [selected, showAll, isInDateRange, drawPath]);
