@@ -65,8 +65,6 @@ const InfoPanel = ({data}) => {
                     </div>
                 </div>
             )}
-    
-    
         </div>
     );
 };

@@ -11,7 +11,6 @@ import "../styles/AddressGraph.scss";
 
 import InfoPanel from "./InfoPanel";
 import TimeSlider from "./TimeSlider";
-import { schemeBrBG } from "d3";
 
 // Adapted from https://stackoverflow.com/questions/17156283/d3-js-drawing-arcs-between-two-points-on-map-from-file
 const generatePathData = (origin, target, transform) => {
@@ -19,19 +18,19 @@ const generatePathData = (origin, target, transform) => {
     const right = 1;
     const dirVal = origin.AddressObj ? left : right;
     
-    const targetX = parseInt(target.LocX)
+    const targetX = target.x
                         * (dirVal === right && transform && transform.k ? transform.k : 1)
                         + (dirVal === right && transform && transform.x ? transform.x : 0);
 
-    const targetY = parseInt(target.LocY) 
+    const targetY = target.y
                         * (dirVal === right && transform && transform.k ? transform.k : 1)
                         + (dirVal === right && transform && transform.y ? transform.y : 0);
 
-    const originX = parseInt(origin.LocX)
+    const originX = origin.x
                         * (dirVal === left && transform && transform.k ? transform.k : 1)
                         + (dirVal === left && transform && transform.x ? transform.x : 0);
 
-    const originY = parseInt(origin.LocY) 
+    const originY = origin.y
                         * (dirVal === left && transform && transform.k ? transform.k : 1)
                         + (dirVal === left && transform && transform.y ? transform.y : 0);
 
@@ -155,27 +154,25 @@ const AddressGraph = ({headstones, addresses}) => {
         headstones.forEach((h) => {
             h.AddressObj = addresses.find(a => a.NameEnglish === h.City);
 
-
-            h.OriginalLocX = h.LocX;
-            h.OriginalLocY = h.LocY;
-
-            let locX = parseInt(h.LocX) * 5;
-            let locY = parseInt(h.LocY) * 5;
-
-            // locX += 150;
+            let x = parseInt(h.LocX) * 5;
+            let y = parseInt(h.LocY) * 5;
 
             if(h.CemeteryName === "Beechmount") {
-                locX += 600;
-                locY += 400;
+                x += 600;
+                y += 400;
             } else if(h.CemeteryName === "Mount Pleasant") {
-                locX += 400;
+                x += 400;
             } else if(h.CemeteryName === "Edmonton") {
-                locY += 400;
+                y += 400;
             }
 
-            h.LocX = xScale(locX) + "";
-            h.LocY = yScale(locY) + "";
-        
+            h.x = xScale(x);
+            h.y = yScale(y);
+        });
+
+        addresses.forEach((a) => {
+            a.x = parseInt(a.LocX);
+            a.y = parseInt(a.LocY);
         });
 
         svg.selectAll(".headstone")
@@ -183,8 +180,8 @@ const AddressGraph = ({headstones, addresses}) => {
             .enter().append("circle")
                 .attr("class", "node headstone")
                 .style("fill", (h) => h.AddressObj.Color)
-                .attr("cx", (h) => h.LocX)
-                .attr("cy", (h) => h.LocY)
+                .attr("cx", (h) => h.x)
+                .attr("cy", (h) => h.y)
                 .attr("r", 2)
                 .on("click", (e, h) => {
                     setSelected(h);
@@ -227,8 +224,8 @@ const AddressGraph = ({headstones, addresses}) => {
             .enter().append("rect")
                 .attr("class", "node address")
                 .style("fill", (a) => a.Color)
-                .attr("x", (a) => a.LocX - 5)
-                .attr("y", (a) => a.LocY)
+                .attr("x", (a) => a.x - 5)
+                .attr("y", (a) => a.y)
                 .attr("width", 7)
                 .attr("height", 7)
                 .on("click", (e, a) => {
