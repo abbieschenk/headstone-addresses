@@ -1,0 +1,16 @@
+@use "./_colors";
+
+#info-panel {
+    width: 100%;
+    height: 250px;
+    padding: 15px;
+    
+    border: solid 1px colors.$green;
+    border-left: none;
+
+    background-color: colors.$background-lighter;
+
+    .section {
+        padding-bottom: 15px;
+    }
+}

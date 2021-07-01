@@ -16,17 +16,6 @@
     border: 1px solid colors.$green;
 }
 
-#info-panel {
-    width: 100%;
-    height: 250px;
-    padding: 15px;
-    
-    border: solid 1px colors.$green;
-    border-left: none;
-
-    background-color: colors.$background-lighter;
-}
-
 /** Address Graph **/
 
 .background {
@@ -39,6 +28,8 @@
 .china {
     fill: colors.$background-lighter;
     opacity: 0.9;
+
+    stroke-width: 0.3px;
 }
 
 .edmonton {
