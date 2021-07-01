@@ -53,8 +53,15 @@
         }
     }
 
-.logo-image {
+.image {
     padding: 15px 0;
     margin: 0 auto;
-    width: 30%;
+
+    &.logo {
+        width: 30%;
+    }
+
+    &.case-study {
+        width: 60%;
+    }
 }
