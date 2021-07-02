@@ -51,6 +51,11 @@
         &.active {
             text-decoration: underline;
         }
+
+
+        @media (max-width: widths.$break-max-phone-vertical) {
+            font-size: 1.0rem;
+        }
     }
 
 .image {
