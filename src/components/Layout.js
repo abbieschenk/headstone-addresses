@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "gatsby";
+import { Helmet } from "react-helmet"
 
 import Logo from "../images/logo.svg";
 
@@ -9,8 +10,33 @@ import {
 } from "react-feather";
 
 const Layout = ({ children, mainClass }) => {
+    const url = "https://headstoneaddresses.com";
+    const title = "Headstone Addresses";
+    const description = "Chinese headstones often document ancestral hometown addresses. This visualization links headstones to their addresses."
+    const image = "https://res.cloudinary.com/headstone-addresses/image/upload/v1625192021/screenshot.png"
+    
     return (
         <>
+            <Helmet>
+                <title>{title}</title>
+                <meta
+                    name="description"
+                    content={description}
+                 />
+                <meta property="og:url" content={url} />  
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content={title} />
+                <meta property="og:description" content={description} />
+                <meta property="og:site_name" content={title} />
+                <meta property="og:locale" content="en_CA" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:url" content={url} />
+                <meta name="twitter:title" content={title} />
+                <meta name="twitter:description" content={description} />
+                <meta property="og:image" content={image} />
+                <meta name="twitter:image" content={image} />
+
+            </Helmet>
             <header>
                 <nav>
                     <Link id="home" to="/">
