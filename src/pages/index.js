@@ -2,7 +2,6 @@ import React, {
     useEffect, 
     useState, 
 } from "react";
-
 import { useStaticQuery, graphql } from "gatsby";
 
 import Layout from "../components/Layout";
@@ -49,12 +48,7 @@ const Index = () => {
     `);
 
     useEffect(() => {
-        if(allHeadstonesCsv) {
-            setLoading(false);
-        } else {
-            setLoading(true);
-        }
-    
+        setLoading(!allHeadstonesCsv);
     }, [allHeadstonesCsv]);
 
     return (

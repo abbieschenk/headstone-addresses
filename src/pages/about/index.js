@@ -6,7 +6,9 @@ const About = () => {
     return (
         <AboutLayout>
             <h1>About</h1>
-            <p>Headstone Addresses is a community project from the 2020 Digital Heritage Experiences grants stream. This project is supported by the <a href="https://edmontonheritage.ca" target="_blank" rel="noreferrer noopener">Edmonton Heritage Council</a> and the City of Edmonton.</p>
+            <p>
+                Headstone Addresses is a community project from the 2020 Digital Heritage Experiences grants stream. This project is supported by the <a href="https://edmontonheritage.ca" target="_blank" rel="noreferrer noopener">Edmonton Heritage Council</a> and the City of Edmonton.
+            </p>
             <p className="image logo">
                 <a href="https://edmontonheritage.ca" target="_blank" rel="noreferrer noopener">
                     <Image cloudName="headstone-addresses" dpr="auto" responsive width="auto" crop="scale" publicId="ehc_logo.png" secure="true"/>

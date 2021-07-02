@@ -5,7 +5,6 @@ const Support = () => {
     return (
         <AboutLayout> 
             <h1>Support</h1>
-
             <p>
                 Funds to be used for:
             </p> 

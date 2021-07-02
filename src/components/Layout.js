@@ -1,13 +1,11 @@
 import React from "react";
 import { Link } from "gatsby";
 import { Helmet } from "react-helmet"
+import { Instagram } from "react-feather";
 
 import Logo from "../images/logo.svg";
 
 import "../styles/styles.scss";
-import {
-    Instagram
-} from "react-feather";
 
 const Layout = ({ children, mainClass }) => {
     const url = "https://headstoneaddresses.com";

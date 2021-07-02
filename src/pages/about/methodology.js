@@ -24,7 +24,7 @@ const Methodology = () => {
                 The geographical location names denoted for 16 cities/towns were collected from the Headstone Addresses and used to establish clusters. Please note that place-names and village/town or city designations may have changed. There may be unintentional transcription and translation mistakes to Chinese characters due to the erosion of the headstones and font-style of the calligraphy words. If you believe we have inaccurately represented information about your family or kin, please do not hesitate to reach out to the Project Lead.
             </p>
             <p>
-                146 complete addresses were gathered from the <a href="https://www.edmonton.ca/programs_services/municipal-cemeteries" target="_blank" rel="noreferrer noopener">3 Historical Cemeteries of Edmonton</a>, spanning lifetimes from 1872 to 1995. The historical and geopolitical ties are framed within understanding Canada’s colonial history, global migration patterns, as well as labour policies and settlement stories; specifically to Treaty 6 lands around the birth and growth of Edmonton from Fort to City.
+                145 complete addresses were gathered from the <a href="https://www.edmonton.ca/programs_services/municipal-cemeteries" target="_blank" rel="noreferrer noopener">3 Historical Cemeteries of Edmonton</a>, spanning lifetimes from 1872 to 1995. The historical and geopolitical ties are framed within understanding Canada’s colonial history, global migration patterns, as well as labour policies and settlement stories; specifically to Treaty 6 lands around the birth and growth of Edmonton from Fort to City.
             </p>
             <ul>
                 <li>
