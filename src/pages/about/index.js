@@ -8,7 +8,7 @@ const About = () => {
             <h1>About</h1>
             <p>Headstone Addresses is a community project from the 2020 Digital Heritage Experiences grants stream. This project is supported by the Edmonton Heritage Council and the City of Edmonton.</p>
             <p className="image logo">
-                <Image cloudName="headstone-addresses" dpr="auto" responsive width="auto" crop="scale" publicId="ehc_logo.png" />
+                <Image cloudName="headstone-addresses" dpr="auto" responsive width="auto" crop="scale" publicId="ehc_logo.png" secure="true"/>
             </p>
             <p>
                 Headstone Addresses is a digital visualization map made in the context of grave/tomb-sweeping traditions to celebrate the history of over six generations of Asian-Canadians and Chinese diaspora in Edmonton.
@@ -57,10 +57,10 @@ const About = () => {
                 The colour palette was chosen to complement themes of death, celebration, and mourning. The mixture of brown and grey shades reflects humbleness, while the cool, green tone depicts mourning in Chinese culture; a complimentary pair.
             </p>
             <p className="image case-study">
-                <Image cloudName="headstone-addresses" dpr="auto" responsive width="auto" crop="scale" publicId="logo_case_study_drawings.webp" />
+                <Image cloudName="headstone-addresses" dpr="auto" responsive width="auto" crop="scale" publicId="logo_case_study_drawings.webp" secure="true" />
             </p>
             <p className="image case-study">
-                <Image cloudName="headstone-addresses" dpr="auto" responsive width="auto" crop="scale" publicId="logo_case_study.webp" />
+                <Image cloudName="headstone-addresses" dpr="auto" responsive width="auto" crop="scale" publicId="logo_case_study.webp" secure="true" />
             </p>
             <p>
                 The logo was designed by <a href="https://adelinacreative.com" target="_blank" rel="noreferrer noopener">Adelina Creative</a>.

@@ -206,6 +206,7 @@ const AddressGraph = ({headstones, addresses}) => {
             .enter().append("path")
                 .attr("class", "connection headstone-to-address")
                 .style("stroke", (h) => h.AddressObj.Color)
+                .style("stroke-width", 0.6)
                 .style("fill", "none")
                 .attr("d", (h) => generatePathData(h, h.AddressObj))
                 .attr("opacity", 0);
@@ -215,6 +216,7 @@ const AddressGraph = ({headstones, addresses}) => {
             .enter().append("path")
                 .attr("class", "connection address-to-headstone")
                 .style("stroke", (h) => h.AddressObj.Color)
+                .style("stroke-width", 0.6)
                 .style("fill", "none")
                 .attr("d", (h) => generatePathData(h.AddressObj, h))
                 .attr("opacity", 0);
