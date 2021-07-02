@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimeSlider renders correctly 1`] = `
+<div
+  className="timeslider active"
+>
+  <input
+    className="thumb thumb--left"
+    max={2000}
+    min={1900}
+    onChange={[Function]}
+    style={
+      Object {
+        "zIndex": false,
+      }
+    }
+    type="range"
+    value={1900}
+  />
+  <input
+    className="thumb thumb--right"
+    max={2000}
+    min={1900}
+    onChange={[Function]}
+    type="range"
+    value={2000}
+  />
+  <div
+    className="slider"
+  >
+    <div
+      className="slider__track"
+    />
+    <div
+      className="slider__range"
+    />
+    <div
+      className="slider__left-value"
+    >
+      1900
+    </div>
+    <div
+      className="slider__right-value"
+    >
+      2000
+    </div>
+  </div>
+</div>
+`;
