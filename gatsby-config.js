@@ -16,6 +16,18 @@ module.exports = {
                     include: /images/
                 }
             }
-        }
+        },
+        {
+            resolve: `gatsby-plugin-manifest`,
+            options: {
+            name: `Headstone Addresses`,
+            short_name: `Headstone Addresses`,
+            start_url: `/`,
+            background_color: `#eae4de`,
+            theme_color: `#eae4de`,
+            display: `standalone`,
+            icon: `src/images/logo.svg`
+            },
+        },
     ],
 }

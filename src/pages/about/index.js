@@ -1,6 +1,6 @@
 import React from "react";
 import AboutLayout from "../../components/AboutLayout";
-import { Image, Transformation } from 'cloudinary-react';
+import { Image } from 'cloudinary-react';
 
 const About = () => {
     return (
