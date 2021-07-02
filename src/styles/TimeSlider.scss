@@ -1,3 +1,4 @@
+@use "sass:math";
 @use "./colors";
 @use "./widths";
 
@@ -70,7 +71,7 @@ $slider-width: 75vw;
     height: 0;
     outline: none;
 
-    top: $slider-height / 2 - 2px;
+    top: math.div($slider-height, 2) - 2px;
 
     @include width();
 }
