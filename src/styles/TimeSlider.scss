@@ -16,6 +16,7 @@ $slider-width: 75vw;
 }
 
 .timeslider {
+    position: relative;
     height: 80px;
 
     &.disabled {
@@ -62,12 +63,14 @@ $slider-width: 75vw;
 .thumb::-webkit-slider-thumb {
     -webkit-appearance: none;
 }
-  
+
 .thumb {
     pointer-events: none;
     position: absolute;
     height: 0;
     outline: none;
+
+    top: $slider-height / 2 - 2px;
 
     @include width();
 }
@@ -81,7 +84,7 @@ $slider-width: 75vw;
     z-index: 4;
 }
 
-@mixin thumb-slider {
+@mixin thumb-slider() {
     background-color: colors.$green;
 
     border: none;
@@ -90,7 +93,6 @@ $slider-width: 75vw;
     cursor: pointer;
     height: $slider-height + 4px;
     width: 12px;
-    margin-top: $slider-height - 3px;
     pointer-events: all;
     position: relative;
 }
@@ -103,6 +105,8 @@ $slider-width: 75vw;
 /* For Firefox browsers */
 .thumb::-moz-range-thumb {
     @include thumb-slider();
+
+
 }
 
 .slider__left-value,
