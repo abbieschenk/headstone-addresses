@@ -8,7 +8,9 @@ const About = () => {
             <h1>About</h1>
             <p>Headstone Addresses is a community project from the 2020 Digital Heritage Experiences grants stream. This project is supported by the <a href="https://edmontonheritage.ca" target="_blank" rel="noreferrer noopener">Edmonton Heritage Council</a> and the City of Edmonton.</p>
             <p className="image logo">
-                <a href="https://edmontonheritage.ca" target="_blank" rel="noreferrer noopener"><Image cloudName="headstone-addresses" dpr="auto" responsive width="auto" crop="scale" publicId="ehc_logo.png" secure="true"/></a>
+                <a href="https://edmontonheritage.ca" target="_blank" rel="noreferrer noopener">
+                    <Image cloudName="headstone-addresses" dpr="auto" responsive width="auto" crop="scale" publicId="ehc_logo.png" secure="true"/>
+                </a>
             </p>
             <p>
                 Headstone Addresses is a digital visualization map made in the context of grave/tomb-sweeping traditions to celebrate the history of over six generations of Asian-Canadians and Chinese diaspora in Edmonton.
