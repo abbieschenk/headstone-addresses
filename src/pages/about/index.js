@@ -67,7 +67,7 @@ const About = () => {
             </p>
             <h2>Website</h2>
             <p>
-                This website was built with <a href="https://www.gatsbyjs.com/" target="_blank" rel="noreferrer noopener">Gatsby</a>. The data visualization was built with <a href="https://d3js.org/" target="_blank" rel="noreferrer noopener">D3.js</a>. The full source code is available on <a href="https://github.com/abbieschenk/headstone-addresses" target="_blank" rel="noreferrer noopener">GitHub</a> under the AGPLv3 license. The website was built and desigend by <a href="https://abbieschenk.com" target="_blank" rel="noreferrer noopener">Abbie Schenk</a>.
+                This website was built with <a href="https://www.gatsbyjs.com/" target="_blank" rel="noreferrer noopener">Gatsby</a>. The data visualization was built with <a href="https://d3js.org/" target="_blank" rel="noreferrer noopener">D3.js</a>. The full source code is available on <a href="https://github.com/abbieschenk/headstone-addresses" target="_blank" rel="noreferrer noopener">GitHub</a> under the AGPLv3 license. The website was built and designed by <a href="https://abbieschenk.com" target="_blank" rel="noreferrer noopener">Abbie Schenk</a>.
             </p>
         </AboutLayout>
     );
