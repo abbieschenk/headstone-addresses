@@ -190,14 +190,12 @@ const AddressGraph = ({headstones, addresses}) => {
 
         svg.append("path")
             .attr("class", "china")
-            .attr("stroke", "black")
             .attr("d", "M0,223.418l18.078,0.397l51.785,-14.48l26.282,-22.325l20.839,-44.059l-20.991," + 
                         "-41.825l22.792,-23.148l-27.123,-3.895l10.219,-23.652l29.294,1.628l27.345," +
                         "-24.365l6.12,-27.694l-164.64,-0l0,223.418Z");
                         
         svg.append("path")
             .attr("class", "china hainan")
-            .attr("stroke", "black")
             .attr("fill", "none")
             .attr("d", "M19.753,232.191l-11.115,6.938l5.712,10.871l10.437,-6.539l3.089,-8.37l-8.123,-2.9Z");
 
