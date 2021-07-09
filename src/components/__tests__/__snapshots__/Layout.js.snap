@@ -27,6 +27,12 @@ Array [
           About
         </a>
         <a
+          className="nav-link"
+          href="/about/support"
+        >
+          Support
+        </a>
+        <a
           className="social"
           href="https://instagram.com/headstoneaddresses"
           rel="noreferrer noopener"
