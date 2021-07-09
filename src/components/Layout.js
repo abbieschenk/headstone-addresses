@@ -49,6 +49,9 @@ const Layout = ({ children, mainClass }) => {
                         <Link to="/about" className="nav-link">
                             About
                         </Link>
+                        <Link to="/about/support" className="nav-link">
+                            Support
+                        </Link>
                         <a
                             className="social" 
                             href="https://instagram.com/headstoneaddresses" 

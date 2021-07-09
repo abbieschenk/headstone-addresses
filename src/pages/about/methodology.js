@@ -38,7 +38,7 @@ const Methodology = () => {
                 </li>
             </ul>
             <p>
-                Some sites not yet documented for data collection from Beechmount Cemetery in this dataset due to funding constraints. Please consider a donation to support the continued development of this project and completion of this dataset.
+                Some sites not yet documented for data collection from Beechmount Cemetery in this dataset due to funding constraints. <a href="https://www.gofundme.com/headstoneaddresses" target="_blank" rel="noreferrer noopener">Please consider a donation</a> to support the continued development of this project and completion of this dataset.
             </p>
         </AboutLayout>
     );

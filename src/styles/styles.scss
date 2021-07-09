@@ -109,8 +109,12 @@ nav {
         
         justify-content: space-between;
 
-        a:first-child {
+        a {
             margin-right: 15px;
+
+            &:last-child {
+                margin-right: 0;
+            }
         }
 
         .social {
@@ -127,7 +131,12 @@ nav {
     }
 
     @media (max-width: widths.$break-max-phone-vertical) {
-        font-size: 1.2rem;
+        font-size: 1.0rem;
+
+        #menu > a {
+            margin-right: 8px;
+        }
+
     }
 }
 

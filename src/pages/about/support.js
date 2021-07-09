@@ -5,6 +5,7 @@ const Support = () => {
     return (
         <AboutLayout> 
             <h1>Support</h1>
+            <p>Please consider supporting the project at our <a href="https://www.gofundme.com/headstoneaddresses" target="_blank" rel="noreferrer noopener">GoFundMe</a>.</p>
             <p>
                 Funds to be used for:
             </p> 
