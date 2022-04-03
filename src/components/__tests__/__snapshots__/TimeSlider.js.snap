@@ -37,11 +37,13 @@ exports[`TimeSlider renders correctly 1`] = `
     <div
       className="slider__left-value"
     >
+      Year of Birth 
       1900
     </div>
     <div
       className="slider__right-value"
     >
+      Year of Death 
       2000
     </div>
   </div>
