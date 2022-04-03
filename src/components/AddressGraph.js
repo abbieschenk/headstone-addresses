@@ -280,7 +280,10 @@ const AddressGraph = ({headstones, addresses}) => {
         const svg = d3.select(d3ref.current);
 
         svg.selectAll(".address,.headstone").filter((d) => d.City && isInDateRange(d)).attr("opacity", 1);
-        svg.selectAll(".address,.headstone").filter((d) => d.City && !isInDateRange(d)).attr("opacity", 0);
+
+        svg.selectAll(".address,.headstone").filter((d) => d.City && !isInDateRange(d))
+        .attr("opacity", 0.3)
+        .style("cursor", "default");
 
     }, [isInDateRange]);
 
