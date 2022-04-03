@@ -92,8 +92,8 @@ exports[`InfoPanel renders headstone data correctly 1`] = `
         Note
       </div>
       <div>
-        Test-Province
-        , Test-City-1
+        Test-Province, 
+        Test-City-1
         , Test-Town
         , Test-Village
         , Test-Neighbourhood
