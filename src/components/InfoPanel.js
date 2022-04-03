@@ -49,7 +49,7 @@ const InfoPanel = ({data}) => {
                                     {HeadstoneNotes}
                                 </div>
                                 <div>
-                                    {Province}{City && `, ${City}`}{Town && `, ${Town}`}{Village && `, ${Village}`}{Neighbourhood && `, ${Neighbourhood}`}
+                                    {Province && `${Province}, `}{City}{Town && `, ${Town}`}{Village && `, ${Village}`}{Neighbourhood && `, ${Neighbourhood}`}
                                 </div>
                             </div>
                             <div className="section">
