@@ -5,9 +5,9 @@ const Support = () => {
     return (
         <AboutLayout> 
             <h1>Support</h1>
-            <p>Please consider supporting the project at our <a href="https://www.gofundme.com/headstoneaddresses" target="_blank" rel="noreferrer noopener">GoFundMe</a>.</p>
+            <p>If you are interested in supporting this project or the creation of a similar project, please reach out via email to <a href="mailto:elaine.yip@ualberta.ca">Elaine Yip</a>.</p>
             <p>
-                Funds to be used for:
+                Funds would be used for:
             </p> 
             <ul>
                 <li>
@@ -21,12 +21,6 @@ const Support = () => {
                     Data processing to update the website (paid per hour of work).
                 </li>
             </ul>
-            <p>
-                For each milestone of $5000 funding reached, we anticipate processing another 150-200 sites for the Beechmount Cemetery location. This is specifically due to the proximity of the sites to each other in the designated “Chinese Section” of the cemetery, and that a version of the shortlisted names and site locations list is readily prepared.    
-            </p>            
-            <p>
-                If you would like to consider a version of this project to be completed for any cemetery in Canada (or globally), please reach out and start a conversation with us.
-            </p>
         </AboutLayout>
     );
 }

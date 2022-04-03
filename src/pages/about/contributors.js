@@ -9,6 +9,9 @@ const Contributors = () => {
             <p>
                 Project Lead
             </p>
+            <p>
+                <a href="/about/support">Consider supporting the project!</a>
+            </p>
             <h2>Abbie Schenk</h2>
             <p>
                 Web Design & Developer
