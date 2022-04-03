@@ -94,8 +94,8 @@ const TimeSlider = ({
                     ref={range} 
                     className="slider__range" 
                 />
-                <div className="slider__left-value">{minVal}</div>
-                <div className="slider__right-value">{maxVal}</div>
+                <div className="slider__left-value">Year of Birth {minVal}</div>
+                <div className="slider__right-value">Year of Death {maxVal}</div>
             </div>
         </div>
     );
